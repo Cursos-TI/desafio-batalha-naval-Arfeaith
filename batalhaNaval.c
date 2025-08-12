@@ -1,40 +1,118 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
-
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    //Criar e inicializar variáveis relevantes
+    int tam_tabuleiro = 10;
+    int tam_navio = 3;
+    int repre_navio = 3;
+    int tabuleiro [tam_tabuleiro][tam_tabuleiro];
+    int navioH [tam_navio];
+    int navioV [tam_navio];
+    int agua = 0;
+    char linha [10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    int linha_navioH = 2, coluna_navioH = 4;
+    int linha_navioV = 5, coluna_navioV = 6;
+
+    //Inicializar o tabuleiro com água
+    for (int i = 0; i < tam_tabuleiro; i++)
+    {
+        for (int j = 0; j < tam_tabuleiro; j++)
+        {
+            tabuleiro[i][j] = agua;
+        }
+
+    }
+
+    //Colocar a representação dos navios nos vetores dos navios
+    for (int i = 0; i < tam_navio; i++)
+    {
+        navioH[i] = repre_navio;
+        navioV[i] = repre_navio;
+    }
+    
+    //Checar se os navios cabem no tabuleiro e os posicionando
+    if (coluna_navioH + tam_navio <= tam_tabuleiro)
+    {
+        int sobrepoe = 0;
+        for (int i = 0; i < tam_navio; i++)
+        {
+            if (tabuleiro[linha_navioH][coluna_navioH + i] != agua)
+            {
+                sobrepoe = 1;
+            }
+            
+        }
+        if (!sobrepoe)
+        {
+            for (int i = 0; i < tam_navio; i++)
+            {
+                tabuleiro[linha_navioH][coluna_navioH + i] = navioH[i];
+            }
+            
+        } else {
+            printf("Navio na horizontal sobrepõe outro navio.\n");
+            return 0;
+        }
+        
+        
+    } else {
+        printf("Navio na horizontal não cabe no tabuleiro.\n");
+        return 0;
+    }
+
+    if (coluna_navioV + tam_navio <= tam_tabuleiro)
+    {
+        int sobrepoe = 0;
+        for (int i = 0; i < tam_navio; i++)
+        {
+            if (tabuleiro[linha_navioV][coluna_navioV + i] != agua)
+            {
+                sobrepoe = 1;
+            }
+            
+        }
+        if (!sobrepoe)
+        {
+            for (int i = 0; i < tam_navio; i++)
+            {
+                tabuleiro[linha_navioV][coluna_navioV + i] = navioV[i];
+            }
+            
+        } else {
+            printf("Navio na vertical sobrepõe outro navio.\n");
+            return 0;
+        }
+        
+        
+    } else {
+        printf("Navio na vertical não cabe no tabuleiro.\n");
+        return 0;
+    }
+
+    //Exibir tabuleiro
+    printf("\n   ");
+    for (int i = 0; i < tam_tabuleiro; i++)
+    {
+        printf("%c ", linha[i]);
+    }
+
+    printf("\n");
+
+    for (int i = 0; i < tam_tabuleiro; i++)
+    {
+        printf("%d  ", i);
+        for (int j = 0; j < tam_tabuleiro; j++)
+        {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        
+        printf("\n");
+
+    }
+
+    printf("\n");
 
     return 0;
 }
